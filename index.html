@@ -6,6 +6,20 @@
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
         <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+        <!-- カスタムシェーダーの作成 -->
+        <script id="gif-shader" type="x-shader/x-fragment">
+            precision highp float;
+          
+            uniform sampler2D map;
+            uniform float time;
+            varying vec2 vUv;
+          
+            void main() {
+              vec4 texel = texture2D(map, vUv);
+              gl_FragColor = texel;
+            }
+          </script>
+          
     </head>
 
     <body style="margin: 0; overflow: hidden;">
@@ -16,6 +30,7 @@
         >
                 <a-image
                     src="ARgif.gif"
+                    material="shader:gif-shader"
                     look-at="[gps-camera]"
                     scale="12 10 10"
                     gps-entity-place="latitude:24.340277457357136; longitude:124.15813455167138; altitude: 10;"
