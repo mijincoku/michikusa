@@ -7,33 +7,7 @@
         <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
         <!-- <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script> -->
         <script src="https://raw.githack.com/AR-js-org/AR.js/3.0.0/aframe/build/aframe-ar-nft.js"></script>
-
-<script>
-    function getLastModified() {
-        const xhr = new XMLHttpRequest();
-        xhr.open('HEAD', window.location.href, false);
-        xhr.send(null);
-        const lastModified = new Date(xhr.getResponseHeader('Last-Modified'));
-        return lastModified;
-    }
-
-    function formatDate(date) {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        const seconds = String(date.getSeconds()).padStart(2, '0');
-
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const lastModified = getLastModified();
-        const formattedDate = formatDate(lastModified);
-        document.getElementById('version-info').innerText = `最終変更日時: ${formattedDate}`;
-    });
-</script>
+        
 
     </head>
 
@@ -45,18 +19,19 @@
         >
         <a-assets>
             <a-asset-item id="whale-obj" src="kujira/10054_Whale_v2_L3.obj"></a-asset-item>
+            <a-asset-item id="whale-mtl" src="kujira/10054_Whale_v2_L3.mtl"></a-asset-item>
           </a-assets>
       
           <a-entity
             id="whale"
             gps-entity-place="latitude: 24.340285443302907; longitude: 124.15822166881583;"
-            obj-model="obj: #whale-obj;"
-            scale="0.3 0.3 0.3"
+            obj-model="obj: #whale-obj; mtl: #whale-mtl;"
+            scale="0.1 0.1 0.1"
             rotation="0 180 0"
             position="0 10 0"
           ></a-entity>
       
-          <a-sky color="#ECECEC"></a-sky>
+          <!-- <a-sky color="#ECECEC"></a-sky> -->
  
     
                 <a-camera gps-camera="gpsMinDistance:2; maxDistance:100;" rotation-reader> </a-camera>
