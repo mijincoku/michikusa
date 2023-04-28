@@ -9,9 +9,17 @@
         <style>
           #scaling-slider {
             position: fixed;
-            bottom: 10px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
+            z-index: 100;
+          }
+          #default-size-marker {
+            position: fixed;
+            bottom: 10px;
+            left: calc(50% - 7px);
+            font-size: 12px;
+            color: #000;
             z-index: 100;
           }
         </style>
@@ -40,6 +48,7 @@
           <a-camera gps-camera="gpsMinDistance:2; maxDistance:100;" rotation-reader> </a-camera>
         </a-scene>
         <input type="range" id="scaling-slider" min="1" max="100" value="15" />
+        <div id="default-size-marker">1/1</div>
         
         <script>
           document.getElementById("scaling-slider").addEventListener("input", function (event) {
