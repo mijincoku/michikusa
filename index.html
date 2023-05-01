@@ -32,6 +32,12 @@
           .slider-green::-moz-range-thumb {
             background-color: green;
           }
+          .slider-green::-webkit-slider-runnable-track {
+            background-color: green;
+          }
+          .slider-green::-moz-range-track {
+            background-color: green;
+          }
         </style>
     </head>
 
@@ -79,7 +85,6 @@
           scalingSlider.addEventListener("input", function (event) {
             let scaleValue = event.target.value / 100 * defaultScale;
             whale.setAttribute("scale", `${scaleValue} ${scaleValue} ${scaleValue}`);
-            currentSize.textContent
             currentSize.textContent = `${event.target.value}%`;
             updateUI(event.target.value);
           });
