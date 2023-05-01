@@ -22,6 +22,16 @@
             color: #000;
             z-index: 100;
           }
+          .green {
+            color: green !important;
+            font-size: 18px !important;
+          }
+          .slider-green::-webkit-slider-thumb {
+            background-color: green;
+          }
+          .slider-green::-moz-range-thumb {
+            background-color: green;
+          }
         </style>
     </head>
 
@@ -56,11 +66,26 @@
           const currentSize = document.getElementById("current-size");
           const whale = document.getElementById("whale");
 
+          function updateUI(value) {
+            if (value === '100') {
+              currentSize.classList.add("green");
+              scalingSlider.classList.add("slider-green");
+            } else {
+              currentSize.classList.remove("green");
+              scalingSlider.classList.remove("slider-green");
+            }
+          }
+
           scalingSlider.addEventListener("input", function (event) {
             let scaleValue = event.target.value / 100 * defaultScale;
             whale.setAttribute("scale", `${scaleValue} ${scaleValue} ${scaleValue}`);
+            currentSize.textContent
             currentSize.textContent = `${event.target.value}%`;
+            updateUI(event.target.value);
           });
+
+          // 初期UIの設定
+          updateUI(scalingSlider.value);
         </script>
     </body>
 </html>
