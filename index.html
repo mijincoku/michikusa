@@ -38,6 +38,18 @@
           .slider-green::-moz-range-track {
             background-color: green;
           }
+          #screenshot-button {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            padding: 10px 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+          }
         </style>
     </head>
 
@@ -54,23 +66,25 @@
       
           <a-entity
             id="whale"
-            gps-entity-place="latitude:24.352449630206163; longitude:124.15072973733741;"
+            gps-entity-place="latitude:24.340286054252246; longitude:124.15810365161835;"
             obj-model="obj: #whale-obj; mtl: #whale-mtl;"
             scale="0.15 0.15 0.15"
             rotation="-90 0 0"
             position="0 20 0"
           ></a-entity>
       
-          <a-camera gps-camera="gpsMinDistance:2;" rotation-reader> </a-camera>
+          <a-camera gps-camera="gpsMinDistance:2; maxDistance:100;" rotation-reader> </a-camera>
         </a-scene>
         <input type="range" id="scaling-slider" min="1" max="300" value="100" />
         <div id="current-size">100%</div>
+        <div id="screenshot-button">Take Screenshot</div>
         
         <script>
           const defaultScale = 0.15;
           const scalingSlider = document.getElementById("scaling-slider");
           const currentSize = document.getElementById("current-size");
           const whale = document.getElementById("whale");
+          const screenshotButton = document.getElementById("screenshot-button");
 
           function updateUI(value) {
             if (value === '100') {
@@ -89,8 +103,29 @@
             updateUI(event.target.value);
           });
 
+          screenshotButton.addEventListener("click", function () {
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+            const scene = document.querySelector("a-scene");
+            const renderer = scene.renderer;
+            const camera = scene.camera;
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            renderer.setSize(canvas.width, canvas.height);
+            renderer.render(scene.object3D, camera);
+            const screenshot = canvas.toDataURL("image/png");
+
+            const link = document.createElement("a");
+            link.href = screenshot;
+            link.download = "screenshot.png";
+            link.click();
+          });
+
           // 初期UIの設定
           updateUI(scalingSlider.value);
         </script>
     </body>
 </html>
+
